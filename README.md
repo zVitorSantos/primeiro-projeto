@@ -4,9 +4,9 @@ O projeto de Lista de Tarefas é uma aplicação web simples que permite ao usu�
 
 # Aparência:
 Desktop
-![image]([https://user-images.githubusercontent.com/77756047/211304452-220fedf0-f91b-490f-8a65-a60ce860bc5c.png](https://prnt.sc/wAReTJ3aFQd0))
+![image][https://user-images.githubusercontent.com/77756047/211304452-220fedf0-f91b-490f-8a65-a60ce860bc5c.png](https://prnt.sc/wAReTJ3aFQd0)
 Mobile
-![image]([[https://user-images.githubusercontent.com/77756047/211304452-220fedf0-f91b-490f-8a65-a60ce860bc5c.png](https://prnt.sc/wAReTJ3aFQd0)](https://prnt.sc/DOp3T9QCAH2o))
+![image][[https://user-images.githubusercontent.com/77756047/211304452-220fedf0-f91b-490f-8a65-a60ce860bc5c.png](https://prnt.sc/DOp3T9QCAH2o)
 
 
 ## Tecnologias Utilizadas
