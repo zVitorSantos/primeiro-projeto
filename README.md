@@ -3,7 +3,8 @@
 O projeto de Lista de Tarefas é uma aplicação web simples que permite ao usuário criar e gerenciar uma lista de tarefas. O objetivo principal do projeto é fornecer uma interface intuitiva para adicionar tarefas, marcar tarefas como concluídas e excluir tarefas.
 
 # Aparência:
-
+![Desktop](images/Desktop.png)
+![Mobile](images/Mobile.png)
 
 ## Tecnologias Utilizadas
 
