@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title >Check List</title>
+    <link rel="stylesheet" type="text/css" href="./styles/styles.css">
+    <link rel="icon" href="./images/favicon-16x16.png" type="image/x-icon">
+</head>
+
+<body>
+
+    <nav>
+        <div class="logo-container">
+            <img src="./images/list.png" class="logo-image">
+            <h1 class="logo-title">Lista de Tarefas</h1>
+        </div>
+        <form id="task-form">
+            <input type="text" id="task-input" placeholder="Digite uma tarefa..." required>
+            <button type="submit">Adicionar Tarefa</button>
+        </form>
+    </nav>
+
+    <main>
+        <ul id="task-list">
+        </ul>
+    </main>
+
+    <footer id="footer">
+        <p>Total de tarefas: <span id="total-tasks">0</span></p>
+    </footer>
+
+    <script>
+        // Marcar tarefa como concluída ou excluir tarefa
+        const taskList = document.getElementById("task-list");
+        taskList.addEventListener("click", function (event) {
+            if (event.target.classList.contains("task-item-checkbox")) {
+                const taskItem = event.target.parentElement;
+                taskItem.classList.toggle("completed");
+            } else if (event.target.classList.contains("delete-task-button")) {
+                const taskItem = event.target.parentElement;
+                taskItem.remove();
+                updateTotalTasks();
+            }
+        });
+
+        // Adicionar tarefa
+        const taskForm = document.getElementById("task-form");
+        const taskInput = document.getElementById("task-input");
+        taskForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+            const taskContent = taskInput.value.trim();
+            if (taskContent !== "") {
+                const newTask = document.createElement("li");
+                newTask.classList.add("task-item");
+
+                const checkbox = document.createElement("input");
+                checkbox.setAttribute("type", "checkbox");
+                checkbox.classList.add("task-item-checkbox");
+                newTask.appendChild(checkbox);
+
+                const taskText = document.createElement("span");
+                taskText.textContent = taskContent;
+                taskText.classList.add("task-item-content");
+                newTask.appendChild(taskText);
+
+                const deleteButton = document.createElement("button");
+                deleteButton.textContent = "Excluir";
+                deleteButton.classList.add("delete-task-button");
+                newTask.appendChild(deleteButton);
+
+                taskList.appendChild(newTask);
+                taskInput.value = "";
+                updateTotalTasks();
+            }
+        });
+
+        // Limpar todas as tarefas
+        const clearTasksBtn = document.createElement("button");
+        clearTasksBtn.textContent = "Limpar Tudo";
+        clearTasksBtn.classList.add("clear-tasks-button"); // Adiciona a classe CSS
+        document.getElementById("footer").appendChild(clearTasksBtn);
+
+        clearTasksBtn.addEventListener("click", function () {
+            taskList.innerHTML = "";
+            updateTotalTasks();
+        });
+
+        // Salvar tarefas no armazenamento local
+        window.addEventListener
+        // Salvar tarefas no armazenamento local
+        window.addEventListener("beforeunload", function () {
+            const tasks = Array.from(taskList.children).map(function (task) {
+                return {
+                    content: task.querySelector(".task-item-content").textContent,
+                    completed: task.classList.contains("completed"),
+                };
+            });
+            localStorage.setItem("tasks", JSON.stringify(tasks));
+        });
+
+        // Carregar tarefas do armazenamento local
+        window.addEventListener("DOMContentLoaded", function () {
+            const storedTasks = JSON.parse(localStorage.getItem("tasks"));
+            if (storedTasks) {
+                storedTasks.forEach(function (storedTask) {
+                    const newTask = document.createElement("li");
+                    newTask.classList.add("task-item");
+
+                    const checkbox = document.createElement("input");
+                    checkbox.setAttribute("type", "checkbox");
+                    checkbox.classList.add("task-item-checkbox");
+                    newTask.appendChild(checkbox);
+
+                    const taskContent = document.createElement("span");
+                    taskContent.textContent = storedTask.content;
+                    taskContent.classList.add("task-item-content");
+                    newTask.appendChild(taskContent);
+
+                    if (storedTask.completed) {
+                        newTask.classList.add("completed");
+                        checkbox.checked = true;
+                    }
+
+                    const deleteButton = document.createElement("button");
+                    deleteButton.textContent = "Excluir";
+                    deleteButton.classList.add("delete-task-button");
+                    newTask.appendChild(deleteButton);
+
+                    taskList.appendChild(newTask);
+                });
+
+                updateTotalTasks();
+            }
+        });
+
+        // Atualizar total de tarefas
+        function updateTotalTasks() {
+            const totalTasks = document.getElementById("total-tasks");
+            totalTasks.textContent = taskList.children.length;
+        }
+
+        // Limpar armazenamento local ao recarregar a página
+        window.addEventListener("load", function () {
+            localStorage.removeItem("tasks");
+        });
+
+    </script>
+
+</body>
+
+</html>
